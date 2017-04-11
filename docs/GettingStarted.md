@@ -1,6 +1,6 @@
 # Getting Started
 
-All templates are based on Giter8 , make sure you setup g8 on your machine - http://www.foundweekends.org/giter8/setup.html (one time process).
+All templates are based on Giter8 , make sure you installed sbt 0.13.13 or above on your machine.
 
 Which app you want to build ? 
 
