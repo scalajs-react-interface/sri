@@ -8,4 +8,12 @@ Sri (Scalajs React interface) is a scalajs library to build truly native cross p
 ![sri](sri.png)
 
 
-## [Docs](https://github.com/scalajs-react-interface/docs#sri-docs)
+# Docs
+
+ - [Getting Started](./docs/GettingStarted.md)
+ - [Sri Modules](./docs/SriModules.md)
+ - [Defining Components](./docs/DefiningComponents.md)
+ - [Functions as Components](./docs/StatelessFunctionComponents.md)
+ - [Navigation](./docs/Navigation.md)
+ - [Refs To Components](./docs/RefsToComponents.md)
+ - [Universal Styles](./docs/UniversalStyles.md)
