@@ -1,6 +1,6 @@
 # Interop With Third Party Components
 
-If you want to use a reactjs component in your scalajs-react project then you must define a wrapper for js component.
+If you want to use a reactjs component in your project then you must define a wrapper for js component.
 
 ## Example
  Let say we have a JS component , Name : AwesomeJSComp , props ..
@@ -13,119 +13,150 @@ If you want to use a reactjs component in your scalajs-react project then you mu
    }
 
    ```
- To create a wrapper first we must map js types to scala types
+   
+   
+### Using FunctionObjectMacro   
 
- ```scala
-   numberOfLines: Int,
-   onPress: js.UndefOr[() => Unit] = js.undefined,
-   suppressHighlighting: js.UndefOr[Bool] = js.undefined,
-   testID: js.UndefOr[String] = js.undefined
- ```
- make sure you have js.UndefOr[T]  for non required  fields.we also need a method which converts our scala fields to js.Object
 
- ```scala
-  def toJS = {
-   val p = js.Dynamic.literal()
-   p.updateDynamic("numberOfLines")(numberOfLines)
-   onPress.foreach(v => p.updateDynamic("onPress")(v))
-   suppressHighlighting.foreach(v => p.updateDynamic("suppressHighlighting")(v))
-   testID.foreach(v => p.updateDynamic("testID")(v))
-   p
+```scala
+
+import sri.macros.{
+  exclude,
+  FunctionObjectMacro,
+  OptDefault => NoValue,
+  OptionalParam => U
+}
+import sri.core.{CreateElementJSNoInline, ReactElement, ReactNode}
+import scala.scalajs.js.JSConverters.genTravConvertible2JSRichGenTrav
+import scala.scalajs.js
+import scala.scalajs.js.annotation.{JSImport}
+import sri.core.{JSComponent}
+
+//first import the js component lib , let say if jslib available as npm package `awesome-js-comp`
+
+@js.native
+@JSImport("awesome-js-comp", JSImport.Default)
+object AwesomeJSComp extends JSComponent[js.Object]
+
+
+object AwesomeJS {
+  @inline
+  def apply(numberOfLines: Int,
+            onPress: U[() => Unit] = NoValue,
+            suppressHighlighting: U[Boolean] = NoValue,
+            @exclude key: String | Int = null,
+            @exclude ref: js.Function1[AwesomeJSComp.type, Unit] = null,
+            testID: U[String] = NoValue)
+    : ReactElement { type Instance = AwesomeJSComp.type } = {
+
+    val props = FunctionObjectMacro()
+    CreateElementJSNoInline[AwesomeJSComp.type](AwesomeJSComp, props, key, ref)
   }
 
- ```
-
- that's it, now we have all required bits , just composing bits is pending.lets do that
-
- ```scala
-
- case class AwesomeJSCompWrapper( numberOfLines: Int,
-                                   onPress: js.UndefOr[() => Unit] = js.undefined,
-                                   suppressHighlighting: js.UndefOr[Bool] = js.undefined,
-                                   testID: js.UndefOr[String] = js.undefined) {
-   def toJS = {
-     val p = js.Dynamic.literal()
-     p.updateDynamic("numberOfLines")(numberOfLines)
-     onPress.foreach(v => p.updateDynamic("onPress")(v))
-     suppressHighlighting.foreach(v => p.updateDynamic("suppressHighlighting")(v))
-     testID.foreach(v => p.updateDynamic("testID")(v))
-     p
-    }
-
-    def apply(children : ReactNode*) = {
-     val f = React.createFactory(js.Dynamic.Global.AwesomeJSComp) // access real js component , make sure you wrap with createFactory (this is needed from 0.13 onwards)
-     f(toJS, children: _*)
-    }
-
- }
-
- ```
-
- hola you successfully created wrapper! :)
-
- To use this add original js comp source to jsDependencies in sbt build file/or what ever build tool you use.
-
- now you can use AwesomeJSCmpWrapper like a normal  component
-
- ```scala
-def render() = View(key= "1")(AwesomeJSCmpWrapper(numberOfLines = 3,testID = "id"))
-  ```
-
-
-
-## Refs
-
- Some times we may want to call public(exposed) methods of mounted react component's , we use refs to achieve this
-
- Lets assume that our AwesomeJSComp has public method hideMe()
-
- JS World :
-
- ```js
-     // pseudo code
-    <div>
-     <AwesomeJSComp ref = "awesomecomp",..props > </AwesomeJSComp>
-    </div>
-
-    function test() {
-     this.refs.awesomecomp.hideMe()
-    }
-
- ```
-
- Scala World :
-
- To achieve same thing in scala world ,add a new field ref to our AwesomeJSCompWrapper and then create a facade
-  for public methods of AwesomeJSComp
-
- ```scala
- trait AwesomeJSCompWrapperM extends js.Object {
-   def hideMe() : Unit = js.native
-
-   ... more public methods
- }
- ```
- scala example :
- ```scala
- object Parent {
-  @ScalaJSDefined
-  class Component extends ReactComponent[Unit, Unit] {
-    def render() = View(key = "4")(AwesomeJSCompWrapperM(ref = storeChildRef _))
-    var childRef: AwesomeJSCompWrapperM = _
-    def storeChildRef(cref: AwesomeJSCompWrapperM) = {
-      childRef = cref // store reference to use later
-      childRef.hideMe() // invoke actions
-    }
-  }
-  def apply(key: js.UndefOr[String] = js.undefined, ref: js.Function1[Component,_] = null) =
-    makeElementNoProps[Component](key = key, ref = ref)
 }
 
+//if component accepts children
 
- ```
+object AwesomeJS {
+  @inline
+  def apply(numberOfLines: Int,
+            onPress: U[() => Unit] = NoValue,
+            suppressHighlighting: U[Boolean] = NoValue,
+            @exclude key: String | Int = null,
+            @exclude ref: js.Function1[AwesomeJSComp.type, Unit] = null,
+            testID: U[String] = NoValue)(children: ReactNode*)
+    : ReactElement { type Instance = AwesomeJSComp.type } = {
+
+    val props = FunctionObjectMacro()
+    CreateElementJSNoInline[AwesomeJSComp.type](AwesomeJSComp,
+                                                props,
+                                                key,
+                                                ref,
+                                                children.toJSArray)
+  }
+
+}
+  
+  //usage 
+  
+  AwesomeJS(numberOfLines = 4,testID = "hello");
+
+```
+
+***Note:*** If you're wondering why we're using `OptionalParam` instead of `js.UndefOr` check this : https://github.com/scala-js/scala-js/issues/2714
+
+### Using ScalaJSDefined traits
+
+```scala
+
+import sri.core.{CreateElementJSNoInline, ReactElement, ReactNode}
+import sri.macros.exclude
+import scala.scalajs.js.JSConverters.genTravConvertible2JSRichGenTrav
+import scala.scalajs.js
+import scala.scalajs.js.{UndefOr => U,undefined}
+import sri.core.{JSComponent}
+import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
+import scala.scalajs.js.|
+
+  //first import the js component lib , let say if jslib available as npm package `awesome-js-comp`
+
+  @js.native
+  @JSImport("awesome-js-comp", JSImport.Default)
+  object AwesomeJSComp extends JSComponent[AwesomeJSCompProps]
+
+
+  @ScalaJSDefined
+  trait AwesomeJSCompProps extends js.Object {
+    val numberOfLines: Int
+    val onPress: U[() => Unit] = undefined
+    val suppressHighlighting: U[Boolean] = undefined
+    val testID: U[String] = undefined
+
+  }
+
+  object AwesomeJS {
+    @inline
+    def apply(props: AwesomeJSCompProps,
+              @exclude key: String | Int = null,
+              @exclude ref: js.Function1[AwesomeJSComp.type, Unit] = null)
+      : ReactElement { type Instance = AwesomeJSComp.type } = {
+      CreateElementJSNoInline[AwesomeJSComp.type](AwesomeJSComp,
+                                                  props,
+                                                  key,
+                                                  ref)
+    }
+
+  }
+
+  //if component accepts children
+  object AwesomeJS {
+    @inline
+    def apply(props: AwesomeJSCompProps,
+              @exclude key: String | Int = null,
+              @exclude ref: js.Function1[AwesomeJSComp.type, Unit] = null)(
+        children: ReactNode*)
+      : ReactElement { type Instance = AwesomeJSComp.type } = {
+      CreateElementJSNoInline[AwesomeJSComp.type](AwesomeJSComp,
+                                                  props,
+                                                  key,
+                                                  ref,
+                                                  children.toJSArray)
+    }
+
+  }
+  
+  
+  //usage 
+  
+ AwesomeJS(props = new AwesomeJSCompProps {
+                       override val numberOfLines: Int = 2
+                       override val testID: U[String] = "hello"
+                     })
+
+
+```
+
 
 ##Real World Examples
 
-https://github.com/chandu0101/sri/tree/master/universal/src/main/scala/sri/universal/components
-
-https://github.com/chandu0101/sri/tree/master/mobile/src/main/scala/sri/mobile/components
+https://github.com/scalajs-react-interface/universal/blob/master/src/main/scala/sri/universal/components/UniversalComponents.scala
