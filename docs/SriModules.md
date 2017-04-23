@@ -36,7 +36,21 @@ Scala.js wrapper for [react-native](https://facebook.github.io/react-native/).
 
 Scala.js wrapper for [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 
-## Addons
+## Sbt-Sri-Platform
 
-Scala.js wrappers for react-addons-*
+sbt plugin for common tasks(compilation to specific platform/release/build)
+
+## Macros 
+
+scala.js macros :) 
+
+#Core-Push 
+
+scala.js wrapper for https://github.com/Microsoft/react-native-code-push
+
+
+## Maintainers Chart
+
+
+https://github.com/scalajs-react-interface/sri/issues/1
 
