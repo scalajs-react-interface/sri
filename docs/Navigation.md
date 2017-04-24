@@ -46,13 +46,10 @@ class MyHomeScreen extends NavigationScreenComponentNoPS {
 }
 
 object MyHomeScreen {
-  @JSExportStatic
-  val navigationOptions = NavigationScreenOptions[MyHomeScreen](
-    title = "Home"
-  )
+ 
 }
 
-val ModalStack = StackNavigator(registerScreen[MyHomeScreen])
+val ModalStack = StackNavigator(registerStackScreen[MyHomeScreen](navigationOptions = NavigationStackScreenOptions(title = "Home")))
 
 ```
 
@@ -111,6 +108,9 @@ object MyDeepChildComp {
 `NavigationAwareComponentS` -> Component with State and No Props
 
 `NavigationAwareComponent` -> Component with State and  Props
+
+
+
 
 
 
