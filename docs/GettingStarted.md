@@ -28,7 +28,7 @@ Make sure you have your environment setup : https://facebook.github.io/react-nat
 
 ```scala
 
-g8 scalajs-react-universe/mobile.g8
+sbt new scalajs-react-universe/mobile.g8
 
 //it will ask for your project name and package, enter them and continue
 
@@ -61,7 +61,7 @@ npm start
 
 ```scala
 
-g8 scalajs-react-universe/mobile.g8 -b tab-navigation
+sbt new scalajs-react-universe/mobile.g8 -b tab-navigation
 
 //it will ask for your project name and package, enter them and continue
 
@@ -96,7 +96,7 @@ npm start
 
 ```scala
 
-g8 scalajs-react-universe/mobile.g8 -b drawer-navigation
+sbt new scalajs-react-universe/mobile.g8 -b drawer-navigation
 
 //it will ask for your project name and package, enter them and continue
 
