@@ -8,6 +8,24 @@ Sri (Scalajs React interface) is a scalajs library to build truly native cross p
 ![sri](sri.png)
 
 
+## Code of Conduct
+
+If you want live happily in sri org, you need to adapt to two simple things `diversity` and `equality`.
+
+***Diversity***:
+
+1) Realise the fact that not every human Mother Tongue is English.
+
+2) If you find someones English is not good,try to help that person or just ignore and do your work.
+
+
+***Equality***: 
+
+1) What ever tag(CEO,VP,Lead,Sr.Dev,Architect,Jr.Dev,..) you have before your name,you're just another human being on this planet.
+
+2) If you find someone doing wrong technically,try fixing it by sending a PR/guide constructively or just ignore and do your work.
+
+
 # Docs
 
  - [Getting Started](./docs/GettingStarted.md)

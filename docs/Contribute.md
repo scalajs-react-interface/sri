@@ -7,27 +7,11 @@
 3) Check out [Enhancements](https://github.com/scalajs-react-interface/incubator/issues) and [Bugs](https://github.com/scalajs-react-interface/sri/issues)
 
 
-### Code of Conduct
+### Maintainers Note
 
-No COC, follow whatever works for you :) 
+1) Whenever you create a release tag use the current date in your time zone (eg: Today is 2017.5.5 here, release tag : v2017.5.5)
 
-If you still reading and wondering why no COC, let's write down few edge cases(out of infinity)  
-
-1) It's Open Source (no one cares!)
-
-2) Not every person Mother Tongue is `English`, so actual meaning of what person wrote might be entirely different than what person intended to say.
- 
-3) Some people used to be more formal, their intention is not to hurt other but ..
-
-4) Some people act like they are innocent,but in reality they just doing for the sake of fun.
-
-5) Creating a new github(fake) account/borrowing someone else account is just a matter of seconds.
-
-...
-
-
-***If you think all this is nonsense, we should invest some time in framing rules and spend some time in teaching/applying the rules to other people, try spending that time in knowing [who you are](http://www.sriramanamaharshi.org/wp-content/uploads/2012/12/who_am_I.pdf) or send a COC PR :)***
-
+2) If you have to create more release tags in a single day then go with `v2017.5.5.x` where x is positive integer starts from 1 and increment by step 1.
 
 
 
