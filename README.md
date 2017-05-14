@@ -33,6 +33,7 @@ If you want live happily in sri org, you need to adapt to two simple things `div
  - [Defining Components](./docs/DefiningComponents.md)
  - [Functions as Components](./docs/StatelessFunctionComponents.md)
  - [Navigation](./docs/Navigation.md)
+ - [Web Router](./docs/WebRouter.md)
  - [Refs To Components](./docs/RefsToComponents.md)
  - [Universal Styles](./docs/UniversalStyles.md)
  - [Interop With ThirdParty Components](./docs/InteropWithThirdParty.md)
