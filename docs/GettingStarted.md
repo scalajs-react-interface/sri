@@ -156,7 +156,7 @@ npm start
 
 #### Web Basic 
 
-![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/basic/demo.gif)
+![Demo](web-basic.gif)
 
 
 ```scala
@@ -171,7 +171,7 @@ cd basic
 
 #### Web MaterialUI 
 
-![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/materialui/demo.gif)
+![Demo](web-mui.gif)
 
 
 ```scala
@@ -186,7 +186,7 @@ cd materialui
 
 #### Web Realy Graphcool 
 
-![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/relay-graphcool/demo.gif)
+![Demo](web-relay.gif)
 
 
 ```scala
