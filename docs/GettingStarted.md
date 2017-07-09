@@ -184,7 +184,7 @@ cd materialui
 
 ```
 
-#### Web Realy Graphcool 
+#### Web Relay Graphcool 
 
 ![Demo](web-relay.gif)
 
