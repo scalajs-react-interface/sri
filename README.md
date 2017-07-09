@@ -32,9 +32,14 @@ If you want live happily in sri org, you need to adapt to two simple things `div
  - [Sri Modules](./docs/SriModules.md)
  - [Defining Components](./docs/DefiningComponents.md)
  - [Functions as Components](./docs/StatelessFunctionComponents.md)
+ - [VDOM](./docs/VDOM.md)
  - [Navigation](./docs/Navigation.md)
  - [Web Router](./docs/WebRouter.md)
  - [Refs To Components](./docs/RefsToComponents.md)
- - [Universal Styles](./docs/UniversalStyles.md)
  - [Interop With ThirdParty Components](./docs/InteropWithThirdParty.md)
  - [Contribute](./docs/Contribute.md)
+ 
+
+# Community 
+ 
+ If you have any question regarding sri , create an issue [here](https://github.com/scalajs-react-interface/discuss/issues)

@@ -25,7 +25,7 @@ setState((state:State) => state.copy(...))
 ```scala
 
 //old 
-import sri.core.all,_
+import sri.core.all._
 
 //new 
 

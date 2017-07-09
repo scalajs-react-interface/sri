@@ -2,6 +2,15 @@
 
 An extensive routing solution for web.
 
+
+- [History](#history)
+- [Routes](#routes)
+- [RouterAwareComponent](#routerawarecomponent)
+- [Blocking Navigation](#blocking-navigation)
+- [Authentication](#authentication)
+- [Example](#example)
+
+
 ## History 
 
 #### browserHistory : 
@@ -77,7 +86,7 @@ navigation.navigate[AboutScreen]()
 class AboutScreen extends RouterScreenComponentLS[AboutScreen.LocationState] {
   
   def render() = {
-    val id = locationState.id
+    val id = locationState.map(_.id).getOrElese("doesn't exist")
     ...  
   }
 }
@@ -164,7 +173,8 @@ class UserInfoScreen extends RouterScreenComponentPLS[UserInfoScreen.Params,User
   
   def render() = {
   val user  = UsersService.getUserById(params.id)
-  val 
+  val sid = locationState.map(_.id).getOrElese("doesn't exist")
+
     ...  
   }
 }
@@ -220,6 +230,99 @@ registerDynamicScreen[UserInfoScreen]("users/:id/info")
 navigation.navigateP[UserInfoScreen](params = new UserInfoScreen.Params {overrid val id = "userid1234"})
 ```
 
+
+## RouterAwareComponent
+
+All RouterScreenComponent*'s have access to `navigation` , if you want `navigation` behaviour in some deep child component you can explicitly pass  all the way or use `RouterAwareComponent`.
+
+
+```scala
+import sri.web.router._
+
+@ScalaJSDefined
+class DeepChildComponent extends RouterAwareComponent[Props,State] {
+
+    def render() = {
+       Button(onClick = () => navigation.navigate[..](..))
+    }
+}
+
+object DeepChildComponent {
+
+   case class Props()
+   case class State()
+   
+   def apply(props:Props) = WithRouter[DeepChildComponent](props)
+}
+
+```
+
+If ChildComponent has only Props and no State use `RouterAwareComponentP`.
+
+If ChildComponent has only State and no Props use `RouterAwareComponentS`
+
+
+## Blocking Navigation
+
+Let say user is  on PaymentScreen and you want to display a prompt if user accidentally clicked browser back/forward buttons/trying to change route via code, use `RouteChangePrompt` Component
+
+
+```scala
+
+@ScalaJSDefined 
+class PaymentScreen extends RouterScreenComponentS[State] {
+ import PaymentScreen._
+  initialState(State())
+  
+  def render() = {
+  
+   div(id = "paymentform")(
+     input(value = state.card,placeholder= "Card Number" ),
+     button(onClick = (e:ReactEventH) => { submit form .. })("Submit"),
+     RouteChangePrompt(blockTransition = !state.done,message = "Are you sure ? ")
+   )
+  
+  }
+
+}
+
+object PaymentScreen {
+
+case class State(done:Boolean = false,card:String="")
+
+}
+```
+
+`RouteChangePrompt` Component Props
+
+`blockTransition` :  when true , it will display window.confirm dialogue with the message specified when user try to change route.
+
+`message` : Message you want to display to user.
+
+`RouteChangePrompt` renders null , so you can use it anywhere in component tree.
+
+
+## Authentication 
+
+To enable login for your  app just do 
+
+```scala
+
+def isLogged() = {
+ //your auth logic
+}
+
+registerAuthScreen[LoginScreen]("login",validator = isLogged _)
+```
+
+once you used `registerAuthScreen` all other routes in system will be secured, for some specific routes if you want to bypass auth then set `secured= false` while registering route.
+
+```scala
+//Example 
+registerScreen[AboutScreen]("about",secured = false)
+```
+
+
 ## Example 
 
 ```scala
@@ -228,13 +331,14 @@ object AppRoutes extends RouterConfig {
 
   override val history: History = HistoryFactory.browserHistory()
  
-     override val initialRoute = registerInitialScreen[HomeScreen]
+     registerScreen[HomeScreen]("/")
      registerScreen[AboutScreen]("about")
      registerDynamicScreen[ThirdScreenWithParams]("users/:id/info")
  
      registerModule(ProblemsModuleRoutes)
  
-     override val notFound: RouteNotFound = RouteNotFound(initialRoute._1)
+     override val notFound: RouteNotFound = RouteNotFound(
+                                                  router.getRouterScreenKey[HomeScreen])
 }
 
 
@@ -249,3 +353,7 @@ val root = Router(AppRoutes)
 ReactDOM.render(root,dom.document.getElementByID("app"))
 
 ```
+
+### More Examples :
+
+https://github.com/scalajs-react-interface/web-examples

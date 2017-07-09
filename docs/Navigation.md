@@ -89,17 +89,11 @@ class MyDeepChildComp extends NavigationAwareComponentP[Props] {
 }
 
 object MyDeepChildComp {
-  //manidatory
-  @JSExportStatic
-  val contextTypes =
-    navigationContextType
 
-  def apply(props: Props) = CreateElement[MyDeepChildComp](props)
+  case class Props()
+  def apply(props: Props) = WithNavigation[MyDeepChildComp](props)
 }
 ```
-
-***Note:*** You must specify `contextTypes` static property to your component or send a PR to https://github.com/scala-js/scala-js/issues/2771
-
 
 `NavigationAwareComponentNoPS` -> Component with No Props and No State
 

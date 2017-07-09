@@ -4,14 +4,14 @@ All templates are based on Giter8 , make sure you installed sbt 0.13.13 or above
 
 Which app you want to build ? 
 
-- [Mobile App](#mobile-app)
-- [Web App comping soon](#web-app)
+- [Native Mobile App](#native-mobile-app)
+- [Web App](#web-app)
 - [Web And Mobile App comping soon](#web-and-mobile-app)
 
 
 
 
-# Mobile App
+# Native Mobile App
 
 Make sure you have your environment setup : https://facebook.github.io/react-native/docs/getting-started.html (one time process)
 
@@ -150,7 +150,54 @@ npm start
 
 # Web App
 
-Coming soon!....
+- [Web Basic(vdom,css,router)](#web-basic)
+- [Web MaterialUI(vdom,css,router,material-ui)](#web-materialui)
+- [Web RelayGraphcool(vdom,css,router,relay,graphcool)](#web-relay-graphcool)
+
+#### Web Basic 
+
+![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/basic/demo.gif)
+
+
+```scala
+
+git clone https://github.com/scalajs-react-interface/web-examples
+
+cd basic 
+
+// follow instructions in README.md
+
+```
+
+#### Web MaterialUI 
+
+![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/materialui/demo.gif)
+
+
+```scala
+
+git clone https://github.com/scalajs-react-interface/web-examples
+
+cd materialui 
+
+// follow instructions in README.md
+
+```
+
+#### Web Realy Graphcool 
+
+![Demo](https://github.com/scalajs-react-interface/web-examples/tree/master/relay-graphcool/demo.gif)
+
+
+```scala
+
+git clone https://github.com/scalajs-react-interface/web-examples
+
+cd relay-graphcool 
+
+// follow instructions in README.md
+
+```
 
 
 # Web And Mobile App
