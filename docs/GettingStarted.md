@@ -6,7 +6,7 @@ Which app you want to build ?
 
 - [Native Mobile App](#native-mobile-app)
 - [Web App](#web-app)
-- [Web And Mobile App comping soon](#web-and-mobile-app)
+- [Web And Mobile App coming soon](#web-and-mobile-app)
 
 
 
