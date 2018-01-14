@@ -1,6 +1,6 @@
 # Getting Started
 
-All templates are based on Giter8 , make sure you installed sbt 0.13.13 or above on your machine.
+All templates are based on Giter8 , make sure you installed sbt 0.13.16 or above on your machine.
 
 Which app you want to build ? 
 
